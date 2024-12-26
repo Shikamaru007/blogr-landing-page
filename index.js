@@ -2,6 +2,8 @@ const mobileOpenMenuBtn = document.querySelector(".open-menu");
 const mobileCloseMenuBtn = document.querySelector(".close-menu");
 const mobileNav = document.querySelector(".mobile-nav");
 const mobileNavButtons = document.querySelectorAll(".mobile-nav-option");
+const desktopNavButtons = document.querySelectorAll(".desktop-nav-option");
+const desktopNavDropdowns = document.querySelectorAll(".desktop-nav-dropdown");
 
 mobileOpenMenuBtn.addEventListener("click", () => {
     mobileNav.classList.add("open");
@@ -24,6 +26,28 @@ mobileNavButtons.forEach(navBtn => {
         } else {
             dropDown.style.height = `${dropDown.scrollHeight}px`;
             navBtn.classList.add("openmobile-drop");
+        }
+    })
+});
+
+desktopNavButtons.forEach(navBtn => {
+    navBtn.addEventListener("click", (event) => {
+        event.stopPropagation()
+        let dropDown = navBtn.nextElementSibling;
+        if(dropDown === null){
+            return;
+        }else{
+            navBtn.classList.toggle("open")
+        }
+    })
+    
+})
+
+document.addEventListener("click", (event) => {
+    desktopNavDropdowns.forEach(dropdown => {
+        const node = dropdown.parentNode.querySelector(".desktop-nav-option");
+        if(!dropdown.contains(event.target)){
+            node.classList.remove("open")
         }
     })
 })
